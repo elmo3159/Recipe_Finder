@@ -1,0 +1,339 @@
+body {
+  font-family: Arial, sans-serif;
+  background-image: url('/static/images/Recipe_Finder.png');
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3); /* 背景画像のみにフィルター */
+  z-index: -1;
+}
+
+.background-filter {
+  z-index: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  padding: 0px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  max-height: 85px;
+  max-width: 100%;
+  margin: 0;
+}
+
+.user-menu {
+  font-size: 14px;
+  position: absolute;
+  right: 20px;
+}
+
+.header-button {
+  background-color: #000;
+  color: #fff;
+  padding: 4px 8px;  /* Smaller padding */
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 12px;  /* Smaller font size */
+}
+
+.header-button:hover {
+  background-color: #333;
+}
+
+.search-bar {
+  margin: 0px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.search-bar input {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar button {
+  display: none;
+}
+
+#autocomplete-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #fff;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 50px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.delete-button, .deselect-button {
+  border: none;
+  background-color: #2c2c2c;
+  color: #fdf1bb;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  position: relative;
+  transition: background-color 0.3s;
+  margin: 0 20px 20px 0;
+}
+
+.delete-button::before {
+  color: #fdf1bb;
+  position: absolute;
+  left: 15px;
+  font-size: 20px;
+  transform: rotate(270deg);
+}
+
+.delete-button:hover {
+  background-color: #1c1c1c;
+}
+
+.scroll-box {
+  max-height: calc(3.5rem * 12);
+  overflow-y: auto;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  position: relative;
+}
+
+.ingredient-list {
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+  margin: 0;
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #000;
+  margin-bottom: 3px;
+}
+
+.ingredient-checkbox {
+  margin-right: 20px;
+}
+
+.ingredient-divider {
+  border-left: 1px solid #000;
+  height: 25px;
+  margin-right: 20px;
+}
+
+.ingredient-name {
+  font-size: 18px; /* フォントサイズを20pxに設定 */
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 0px;
+}
+
+#autocomplete-results div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#autocomplete-results div:hover {
+  background-color: #f0f0f0;
+}
+
+.search-recipes-button {
+  margin-left: 10px;
+  border: none;
+  background-color: #2c2c2c;
+  color: #fdf1bb;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  position: relative;
+  transition: background-color 0.3s;
+  margin: 20px auto;
+}
+
+.search-recipes-button::before {
+  color: #fdf1bb;
+  position: absolute;
+  left: 15px;
+  font-size: 20px;
+  transform: rotate(270deg);
+}
+
+.search-recipes-button:hover {
+  background-color: #1c1c1c;
+}
+
+.recipe-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recipe-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+  border-bottom: 1px dashed #000;
+  padding-bottom: 1em;
+}
+
+.recipe-image {
+  flex: 0 0 auto;
+  margin-right: 1em;
+}
+
+.recipe-image img {
+  width: 150px; /* 画像の幅 */
+}
+
+.recipe-content {
+  flex: 1;
+  text-align: left;
+}
+
+.recipe-content p {
+  font-size: 20px; /* フォントサイズを20pxに設定 */
+}
+
+.recipe-button {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.view-recipe-button {
+  background-color: #2c2c2c;
+  color: #fdf1bb;
+  border-radius: 30px;
+  padding: 10px 20px;
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.view-recipe-button:hover {
+  background-color: #1c1c1c;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search-bar button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .ingredient-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ingredient-checkbox {
+    margin-right: 10px;
+  }
+
+  .ingredient-divider {
+    display: none;
+  }
+
+  .button-container {
+    justify-content: center;
+  }
+
+  .delete-button {
+    margin: 10px auto;
+  }
+
+  .search-recipes-button {
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .recipe-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .recipe-image {
+    margin-bottom: 10px;
+  }
+
+  .recipe-button {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .view-recipe-button {
+    width: 100%;
+    text-align: center;
+  }
+}

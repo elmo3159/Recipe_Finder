@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー編集</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>ユーザー編集</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="username">ユーザー名:</label>
+                {{ user_form.username }}
+            </div>
+            <div>
+                <label for="email">メールアドレス:</label>
+                {{ user_form.email }}
+            </div>
+            <div>
+                <label for="password1">新しいパスワード:</label>
+                {{ password_form.new_password1 }}
+            </div>
+            <div>
+                <label for="password2">新しいパスワード（確認）:</label>
+                {{ password_form.new_password2 }}
+            </div>
+            <button type="submit">更新</button>
+        </form>
+    </div>
+</body>
+</html>

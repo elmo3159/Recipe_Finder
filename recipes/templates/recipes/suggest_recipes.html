@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Suggest Recipes</h1>
+    <input type="text" id="ingredient-input" placeholder="Enter an ingredient">
+    <button id="add-ingredient">Add Ingredient</button>
+    <ul id="ingredient-box"></ul>
+    <button id="search-recipes">Search Recipes</button>
+
+    <div id="recipe-results" style="display: none;">
+        <h2>Recipe Suggestions</h2>
+        <ul id="recipe-list"></ul>
+    </div>
+</div>
+<script src="{% static 'js/suggest_recipes.js' %}"></script>
+{% endblock %}

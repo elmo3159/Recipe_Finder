@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Your Fridge</h1>
+    <form id="add-ingredient-form" method="post">
+        {% csrf_token %}
+        <input type="text" name="ingredient_name" id="ingredient-input" placeholder="Add Ingredient">
+        <button type="button" id="add-ingredient">Add Ingredient</button>
+        <div id="autocomplete-results"></div>
+    </form>
+    <ul id="ingredient-box"></ul>
+    <button type="button" id="search-recipes">Search Recipes</button>
+
+    <div id="recipe-results" style="display:none;">
+        <h2>Search Results</h2>
+        <ul id="recipe-list"></ul>
+    </div>
+</div>
+{% endblock %}

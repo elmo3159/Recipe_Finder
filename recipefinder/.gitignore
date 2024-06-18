@@ -1,0 +1,14 @@
+local_settings.py
+
+management/
+
+categories.json
+
+fetch_category_data.py
+
+fetch_recipe_data.py
+
+ingredients.csv
+
+staticfiles/
+

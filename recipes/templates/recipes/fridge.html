@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Fridge</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+    <div class="background-filter"></div>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'images/Recipe_Finder_Logo.png' %}" alt="サイトロゴ">
+                    </a>
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="user-menu">
+                        <a href="{% url 'edit_profile' %}" class="header-button">ユーザー編集</a>
+                        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="header-button">ログアウト</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="user-menu">
+                        <a href="{% url 'login' %}" class="header-button">ログイン</a>
+                    </div>
+                {% endif %}
+            </div>
+        </header>
+        <div class="search-bar">
+            <input type="text" id="ingredient-input" placeholder="食材の検索窓">
+            <div id="autocomplete-results"></div>
+        </div>
+
+        <div class="button-container">
+            <button id="deselect-ingredient" class="header-button">選択解除</button>
+            <button id="delete-ingredient" class="header-button">削除</button>
+        </div>
+        
+        <div class="scroll-box">
+            <ul id="ingredient-box" class="ingredient-list">
+                {% for user_ingredient in user_ingredients %}
+                <li class="ingredient-item">
+                    <div class="ingredient-wrapper">
+                        <input type="checkbox" class="ingredient-checkbox" data-id="{{ user_ingredient.ingredient.id }}">
+                        <span class="ingredient-divider"></span>
+                        <span class="ingredient-name">{{ user_ingredient.ingredient.name }}</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <button id="search-recipes" class="search-recipes-button">レシピ検索</button>
+
+        <div id="recipe-results" style="display: none;">
+            <h2>レシピ提案</h2>
+            <ul id="recipe-list"></ul>
+        </div>
+    </div>
+</body>
+</html>

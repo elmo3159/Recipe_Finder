@@ -1,0 +1,66 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+<div class="background-filter"></div>
+<header>
+    <div class="header-content">
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/Recipe_Finder_Logo.png' %}" alt="サイトロゴ">
+            </a>
+        </div>
+        <div class="user-menu">
+            <a href="{% url 'fridge' %}" class="header-button">戻る</a>
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="header-button">ログアウト</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<h1>Matching Recipes</h1>
+<ul class="recipe-list">
+    {% for recipe in page_obj %}
+    <li class="recipe-item">
+        <div class="recipe-image">
+            <img src="{{ recipe.food_image_url }}" alt="Recipe Image">
+        </div>
+        <div class="recipe-content">
+            <h2>{{ recipe.title }}</h2>
+            <p>調理時間: {{ recipe.recipe_indication }}</p>
+            <p>コスト: {{ recipe.recipe_cost }}</p>
+            <p>材料: {{ recipe.materials }}</p>
+        </div>
+        <div class="recipe-button">
+            <a href="{{ recipe.url }}" class="view-recipe-button">レシピを見る</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% if page_obj.has_other_pages %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+
+{% if recipes|length == 0 %}
+<p>No matching recipes found.</p>
+{% endif %}
+{% endblock %}

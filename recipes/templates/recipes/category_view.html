@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Welcome to Recipe Finder</h1>
+
+  <h2>Your Ingredients</h2>
+  <form method="post" action="{% url 'add_ingredient' %}">
+    {% csrf_token %}
+    <input type="text" name="ingredient_name" placeholder="Add Ingredient">
+    <button type="submit">Add</button>
+  </form>
+  <ul>
+    {% for ingredient in ingredients %}
+      <li>
+        {{ ingredient.name }}
+        <a href="{% url 'delete_ingredient' ingredient.id %}">Delete</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2>All Recipes</h2>
+  <ul>
+    {% for recipe in recipes %}
+      <li>
+        <h3>{{ recipe.title }}</h3>
+        <p>{{ recipe.recipe_indication }}</p>
+        <p>{{ recipe.recipe_cost }}</p>
+        <a href="{{ recipe.url }}">View Recipe</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
